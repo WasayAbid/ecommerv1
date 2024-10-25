@@ -15,7 +15,7 @@ const getExtraProduct = async (category: string) => {
 
 export const revalidate = 60;
 
-async function Page({ params }: unknown) {
+async function Page({ params }: { params: { eachid: string; id: string } }) {
   const singleproduct = decodeURIComponent(params.eachid);
   const products = await getProduct(singleproduct);
   const product = products[0]; // Access the first product in the array
@@ -76,34 +76,35 @@ async function Page({ params }: unknown) {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {extraProducts.map((extraProduct: unknown) => {
-              const extraImageUrl = urlFor(extraProduct.image).url(); // Get the image URL for each extra product
+            {extraProducts.map(
+              (extraProduct: (typeof extraProducts)[number]) => {
+                const extraImageUrl = urlFor(extraProduct.image).url(); // Get the image URL for each extra product
 
-              return (
-                <Link href={`/`} key={params.id}>
-                  <div className="bg-[#1C1C1C] rounded-lg shadow-lg p-4 transition-transform transform hover:scale-105">
-                    <Image
-                      src={extraImageUrl}
-                      width={200}
-                      height={200}
-                      alt={extraProduct.name}
-                      className="object-contain rounded-lg mb-3"
-                    />
-                    <h3 className="text-lg font-semibold text-white mb-1">
-                      {extraProduct.name}
-                    </h3>
-                    <p className="text-[#3fcf2c] font-bold">
-                      Price: ${extraProduct.price}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
+                return (
+                  <Link href={`/`} key={params.id}>
+                    <div className="bg-[#1C1C1C] rounded-lg shadow-lg p-4 transition-transform transform hover:scale-105">
+                      <Image
+                        src={extraImageUrl}
+                        width={200}
+                        height={200}
+                        alt={extraProduct.name}
+                        className="object-contain rounded-lg mb-3"
+                      />
+                      <h3 className="text-lg font-semibold text-white mb-1">
+                        {extraProduct.name}
+                      </h3>
+                      <p className="text-[#3fcf2c] font-bold">
+                        Price: ${extraProduct.price}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              }
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 }
-
 export default Page;
