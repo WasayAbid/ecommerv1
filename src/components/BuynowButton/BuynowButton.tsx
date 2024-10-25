@@ -2,7 +2,9 @@
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
-const BuyNowButton = ({ product }) => {
+const BuyNowButton: React.FC<{ product: { name: string; price: number } }> = ({
+  product,
+}) => {
   const makePayment = async () => {
     const stripe = await loadStripe(
       "pk_test_51QDCuVDCQ9A20ePFtTmNER53nQWfqQwQ684lN3PAOn7OIqs5vwXsk37psjDK7BLlwocaquG0EBajhvPUHy5Cp9Hl00RAPKaghP"
@@ -34,7 +36,7 @@ const BuyNowButton = ({ product }) => {
       sessionId: session.id,
     });
 
-    if (result.error) {
+    if (result && result.error) {
       console.error(result.error.message);
     }
   };

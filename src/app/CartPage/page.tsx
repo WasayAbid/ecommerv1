@@ -16,20 +16,21 @@ function CartPage() {
   );
 
   // Update quantity for an item
-  const handleQuantityChange = (index, newQuantity) => {
+  const handleQuantityChange = (index: number, newQuantity: number) => {
     const updatedQuantities = [...quantities];
     updatedQuantities[index] = newQuantity;
     setQuantities(updatedQuantities);
   };
 
   // Delete item from the cart
-  const handleDelete = (index) => {
+  const handleDelete = (index: number) => {
     dispatch(removeItem(index)); // Dispatch the removeItem action with the item's index
   };
 
   // Calculate total price based on quantities
   const total = items.reduce(
-    (acc, item, index) => acc + item.price * quantities[index],
+    (acc: number, item: { price: number }, index: number) =>
+      acc + item.price * quantities[index],
     0
   );
 
@@ -44,72 +45,79 @@ function CartPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Left side: Cart items */}
               <div className="lg:col-span-2">
-                {items.map((item, index) => {
-                  const imageUrl = urlFor(item.image).url();
-                  const itemQuantity = quantities[index];
+                {items.map(
+                  (
+                    item: { name: string; price: number; image: any },
+                    index: number
+                  ) => {
+                    const imageUrl = urlFor(item.image).url();
+                    const itemQuantity = quantities[index];
 
-                  return (
-                    <div
-                      key={index}
-                      className="bg-[#282828] p-4 rounded-lg flex items-center justify-between space-x-4 mb-4"
-                    >
-                      {/* Product Image */}
-                      <Image
-                        src={imageUrl}
-                        alt={item.name}
-                        width={120}
-                        height={120}
-                        className="object-cover rounded-md"
-                      />
+                    return (
+                      <div
+                        key={index}
+                        className="bg-[#282828] p-4 rounded-lg flex items-center justify-between space-x-4 mb-4"
+                      >
+                        {/* Product Image */}
+                        <Image
+                          src={imageUrl}
+                          alt={item.name}
+                          width={120}
+                          height={120}
+                          className="object-cover rounded-md"
+                        />
 
-                      {/* Product Details */}
-                      <div className="flex-grow">
-                        <h2 className="text-2xl font-bold ">{item.name}</h2>
-                        <p className="text-sm text-gray-400">
-                          In Stock • Sold by{" Abdul Wasay"}
-                          <span className="text-[#3fcf2c]">{item.seller}</span>
-                        </p>
-                        <div className="flex space-x-3 mt-2">
-                          {/* Quantity Selector */}
-                          <select
-                            className=" text-white bg-[#232323] px-3 py-1 rounded"
-                            value={itemQuantity}
-                            onChange={(e) =>
-                              handleQuantityChange(
-                                index,
-                                parseInt(e.target.value)
-                              )
-                            }
-                          >
-                            <option value="1">Qty: 1</option>
-                            <option value="2">Qty: 2</option>
-                            <option value="3">Qty: 3</option>
-                            <option value="4">Qty: 4</option>
-                            <option value="5">Qty: 5</option>
-                          </select>
-                          {/* Action Buttons */}
-                          <button
-                            className="text-[#3fcf2c] underline"
-                            onClick={() => handleDelete(index)} // Handle delete
-                          >
-                            Delete
-                          </button>
-                          <button className="text-[#3fcf2c] underline">
-                            Save for later
-                          </button>
-                          <button className="text-[#3fcf2c] underline">
-                            Share
-                          </button>
+                        {/* Product Details */}
+                        <div className="flex-grow">
+                          <h2 className="text-2xl font-bold ">{item.name}</h2>
+                          <p className="text-sm text-gray-400">
+                            In Stock • Sold by{" Abdul Wasay"}
+                            <span className="text-[#3fcf2c]">
+                              {item.seller}
+                            </span>
+                          </p>
+                          <div className="flex space-x-3 mt-2">
+                            {/* Quantity Selector */}
+                            <select
+                              className=" text-white bg-[#232323] px-3 py-1 rounded"
+                              value={itemQuantity}
+                              onChange={(e) =>
+                                handleQuantityChange(
+                                  index,
+                                  parseInt(e.target.value)
+                                )
+                              }
+                            >
+                              <option value="1">Qty: 1</option>
+                              <option value="2">Qty: 2</option>
+                              <option value="3">Qty: 3</option>
+                              <option value="4">Qty: 4</option>
+                              <option value="5">Qty: 5</option>
+                            </select>
+                            {/* Action Buttons */}
+                            <button
+                              className="text-[#3fcf2c] underline"
+                              onClick={() => handleDelete(index)} // Handle delete
+                            >
+                              Delete
+                            </button>
+                            <button className="text-[#3fcf2c] underline">
+                              Save for later
+                            </button>
+                            <button className="text-[#3fcf2c] underline">
+                              Share
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Price */}
+                        <div className="text-lg font-bold text-right">
+                          ${(item.price * itemQuantity).toFixed(2)}
                         </div>
                       </div>
-
-                      {/* Price */}
-                      <div className="text-lg font-bold text-right">
-                        ${(item.price * itemQuantity).toFixed(2)}
-                      </div>
-                    </div>
-                  );
-                })}
+                    );
+                  }
+                )}
               </div>
 
               {/* Right side: Subtotal and Proceed to Checkout */}
