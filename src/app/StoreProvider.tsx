@@ -2,7 +2,6 @@
 import { AppStore, makeStore } from "@/lib/store/store";
 import { Provider } from "react-redux"; // Correct import
 import React, { ReactNode, useRef } from "react";
-import { add } from "@/lib/store/features/cart/cartSlice";
 
 const StoreProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<AppStore>();

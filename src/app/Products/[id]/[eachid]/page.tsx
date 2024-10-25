@@ -15,14 +15,13 @@ const getExtraProduct = async (category: string) => {
 
 export const revalidate = 60;
 
-async function Page({ params }: any) {
+async function Page({ params }: unknown) {
   const singleproduct = decodeURIComponent(params.eachid);
   const products = await getProduct(singleproduct);
   const product = products[0]; // Access the first product in the array
 
   const extraProduct = decodeURIComponent(params.id);
   const extraProducts = await getExtraProduct(extraProduct);
-  const category = params.id;
   const imageUrl = urlFor(product.image).url(); // Get the image URL string
 
   return (
@@ -77,7 +76,7 @@ async function Page({ params }: any) {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {extraProducts.map((extraProduct: any) => {
+            {extraProducts.map((extraProduct: unknown) => {
               const extraImageUrl = urlFor(extraProduct.image).url(); // Get the image URL for each extra product
 
               return (

@@ -10,7 +10,7 @@ const getProduct = async (category: string) => {
 
 export const revalidate = 60;
 
-async function page({ params }: any) {
+async function page({ params }: unknown) {
   const category = params.id;
 
   const product = await getProduct(category);

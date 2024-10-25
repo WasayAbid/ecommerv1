@@ -96,7 +96,7 @@ export default function Homepage() {
             transition={{ duration: 0.5 }}
           >
             <p className="italic">
-              "This gaming PC is incredible! The performance is top-notch!"
+              This gaming PC is incredible! The performance is top-notch!
             </p>
             <p className="mt-4 text-right">— Alex</p>
           </motion.div>
@@ -107,7 +107,7 @@ export default function Homepage() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="italic">
-              "I love the gaming mouse, it's so responsive and lightweight!"
+              I love the gaming mouse, its so responsive and lightweight!
             </p>
             <p className="mt-4 text-right">— Sarah</p>
           </motion.div>
