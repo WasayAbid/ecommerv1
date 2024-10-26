@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../../app/store";
+import { RootState } from "../../store";
 
 // Define a type for the slice state
-
 export interface CartItem {
   name: string;
   price: number;
@@ -10,12 +9,14 @@ export interface CartItem {
 }
 
 // Define the initial state using that type
-export interface cartState {
+export interface CartState {
   items: CartItem[];
 }
+
 const initialState: CartState = {
   items: [],
 };
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -23,7 +24,8 @@ export const cartSlice = createSlice({
     add: (state, action: PayloadAction<CartItem>) => {
       state.items.push(action.payload);
     },
-    removeItem: (state, action) => {
+    removeItem: (state, action: PayloadAction<number>) => {
+      // Expecting the index as payload
       // Filter out the item to be removed
       state.items = state.items.filter((_, index) => index !== action.payload);
     },
@@ -32,7 +34,7 @@ export const cartSlice = createSlice({
 
 export const { add, removeItem } = cartSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.counter.value;
+// Selector to get all cart items
+export const selectCartItems = (state: RootState) => state.cart.items;
 
 export default cartSlice.reducer;
