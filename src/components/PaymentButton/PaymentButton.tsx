@@ -28,19 +28,34 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ total, items }) => {
       "Content-Type": "application/json",
     };
 
-    const response = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body),
-    });
+    try {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      });
 
-    const session = await response.json();
-    const result = await stripe?.redirectToCheckout({
-      sessionId: session.id,
-    });
+      // Check if the response is OK
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error creating checkout session:", errorData);
+        return;
+      }
 
-    if (result.error) {
-      console.error(result.error.message);
+      const session = await response.json();
+
+      // Redirect to checkout
+      const result = await stripe?.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      // Handle potential errors during redirection
+      if (result && result.error) {
+        console.error("Error redirecting to checkout:", result.error.message);
+      }
+    } catch (error) {
+      // Handle unexpected errors
+      console.error("Error during payment process:", error);
     }
   };
 
