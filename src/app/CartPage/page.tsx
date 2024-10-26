@@ -132,11 +132,7 @@ function CartPage() {
                 <div className="h-px bg-[#3fcf2c] my-4"></div>
 
                 <div className="flex justify-center">
-                  <PaymentButton
-                    total={total}
-                    items={items}
-                    className="bg-[#3fcf2c] hover:bg-[#32b127] text-black font-bold py-3 px-8 text-lg rounded-full transition-transform transform hover:scale-105 duration-300 shadow-md hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-[#32b127]/50"
-                  />
+                  <PaymentButton total={total} items={items} />
                 </div>
               </div>
             </div>
