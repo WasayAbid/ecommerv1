@@ -2,7 +2,10 @@
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
-const PaymentButton = ({ total, items }) => {
+const PaymentButton: React.FC<{
+  total: number;
+  items: { name: string; price: number; quantity: number }[];
+}> = ({ total, items }) => {
   // Function to handle the payment process
   const makePayment = async () => {
     const stripe = await loadStripe(
