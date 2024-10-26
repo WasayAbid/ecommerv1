@@ -2,22 +2,25 @@
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
-const PaymentButton: React.FC<{
+// Define the type for items
+type PaymentButtonProps = {
   total: number;
   items: { name: string; price: number; quantity: number }[];
-}> = ({ total, items }) => {
+};
+
+const PaymentButton: React.FC<PaymentButtonProps> = ({ total, items }) => {
   // Function to handle the payment process
   const makePayment = async () => {
     const stripe = await loadStripe(
-      "pk_test_51QDCuVDCQ9A20ePFtTmNER53nQWfqQwQ684lN3PAOn7OIqs5vwXsk37psjDK7BLlwocaquG0EBajhvPUHy5Cp9Hl00RAPKaghP" // Replace with your public Stripe key
+      "pk_test_51QDCuVDCQ9A20ePFtTmNER53nQWfqQwQ684lN3PAOn7OIqs5vwXsk37psjDK7BLlwocaquG0EBajhvPUHy5Cp9Hl00RAPKaghP"
     );
 
     const body = {
-      totalPrice: total, // Send the total price to the backend
+      totalPrice: total,
       products: items.map((item) => ({
         name: item.name,
         price: item.price,
-        quantity: item.quantity, // Assuming you have a quantity field
+        quantity: item.quantity,
       })),
     };
 
@@ -32,7 +35,7 @@ const PaymentButton: React.FC<{
     });
 
     const session = await response.json();
-    const result = stripe?.redirectToCheckout({
+    const result = await stripe?.redirectToCheckout({
       sessionId: session.id,
     });
 
