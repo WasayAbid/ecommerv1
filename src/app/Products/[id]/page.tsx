@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const getProduct = async (category: string) => {
-  return client.fetch(`*[_type=="${category}"]`);
+  return client.fetch(`*[_type == $category]`, { category });
 };
 
 export const revalidate = 60;
