@@ -3,7 +3,8 @@ import { add } from "@/lib/store/features/cart/cartSlice";
 import { useAppDispatch } from "@/lib/store/hooks";
 import React from "react";
 import BuyNowButton from "../BuynowButton/BuynowButton";
-import toast, { Toaster } from "react-hot-toast";
+
+import { toast, Toaster } from "react-hot-toast";
 
 const ProductActions = ({
   product,
