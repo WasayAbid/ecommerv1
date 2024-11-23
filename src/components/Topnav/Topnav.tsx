@@ -16,7 +16,7 @@ export default function TopNav() {
         {/* Logo */}
         <div className="text-[#f5f5f5] text-4xl font-bold flex items-center space-x-3">
           <Link href="/">
-            <span className="ml-2 text-3xl tracking-wider">TheGamer</span>
+            <span className="ml-2 text-3xl tracking-wider">TheGamerVault</span>
           </Link>
         </div>
 
