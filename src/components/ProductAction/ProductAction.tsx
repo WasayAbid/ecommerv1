@@ -3,6 +3,7 @@ import { add } from "@/lib/store/features/cart/cartSlice";
 import { useAppDispatch } from "@/lib/store/hooks";
 import React from "react";
 import BuyNowButton from "../BuynowButton/BuynowButton";
+import toast, { Toaster } from "react-hot-toast";
 
 const ProductActions = ({
   product,
@@ -11,6 +12,8 @@ const ProductActions = ({
 }) => {
   const dispatch = useAppDispatch();
 
+  const notify = () => toast("Added to Cart Successfully");
+
   const handleAddToCart = (product: {
     name: string;
     price: number;
@@ -18,6 +21,7 @@ const ProductActions = ({
   }) => {
     // Dispatch the entire product object with name, price, and image
     dispatch(add(product));
+    notify(); // Trigger toast notification
     console.log("🚀 ~ ProductActions ~ product:", product);
   };
 
@@ -32,6 +36,7 @@ const ProductActions = ({
       >
         Add to Cart
       </button>
+      <Toaster />
     </div>
   );
 };
