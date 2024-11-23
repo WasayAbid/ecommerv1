@@ -19,7 +19,22 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "TheGamerVault",
-  description: "",
+  description: "Your ultimate destination for gaming accessories and products.",
+  icons: {
+    icon: "/images/dpphoto.ico", // Path to your favicon
+    shortcut: "/images/dpphoto.ico",
+    apple: "/apple-touch-icon.png", // Path to the apple touch icon
+  },
+  openGraph: {
+    title: "TheGamerVault",
+    description:
+      "Your ultimate destination for gaming accessories and products.",
+    url: "https://thegamervaultwasay.vercel.app/?__vercel_draft=1", // Your website URL
+    siteName: "TheGamerVault",
+
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

@@ -28,7 +28,6 @@ const ProductActions = ({
 
   return (
     <div className="flex space-x-4">
-      {/* Use the BuyNowButton component here */}
       <BuyNowButton product={product} />
 
       <button
